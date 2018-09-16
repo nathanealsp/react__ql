@@ -11,6 +11,21 @@ const client = new ApolloClient({
   uri: 'https://w5xlvm3vzz.lp.gql.zone/graphql',
 });
 
+// QUERY SYNTAX
+const testQuery = gql`
+  {
+    rates(currency: "USD") {
+      currency
+    }
+  }
+`;
+
+client
+  .query({
+    query: testQuery,
+  })
+  .then(res => console.table(res.data.rates.map(item => item.currency)));
+
 class App extends Component {
   render() {
     return (
