@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider, Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import logo from './logo.svg';
 import './App.css';
 
 // CONNECTING TO THE APOLLO SERVER USING APOLLO BOOST THRU APOLLO CLIENT
@@ -13,7 +12,7 @@ const client = new ApolloClient({
 
 // QUERY SYNTAX
 const POST_QUERY = gql`
-  {
+  query allPosts {
     rates(currency: "USD") {
       currency
     }
@@ -35,11 +34,11 @@ class App extends Component {
             <h1 className="App-title">GraphQL</h1>
           </header>
           <Query query={POST_QUERY}>
-            {client => {
+            {({ loading, data }) => {
               console.log(client.loading);
-              if (!client.loading) {
+              if (!loading) {
                 console.log(client.data);
-                return client.data.rates.map(item => <p key={item.currency}>{item.currency}</p>);
+                return data.rates.map(item => <p key={item.currency}>{item.currency}</p>);
               }
               return <p>Loading ........</p>;
             }}
