@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
 }
@@ -30,4 +42,30 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+ul {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 5px;
+  padding: 5px;
+}
+
+li {
+  background: #222;
+  color: white;
+  /* width: 100px; */
+  height: 43px;
+  display: grid;
+  place-content: center;
+  border-radius: 3px;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+p:hover {
+  opacity: .8;
 }

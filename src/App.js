@@ -31,14 +31,16 @@ class App extends Component {
       <ApolloProvider client={client}>
         <div className="App">
           <header className="App-header">
-            <h1 className="App-title">GraphQL</h1>
+            <h1 className="App-title">FOREX RATES</h1>
           </header>
           <Query query={POST_QUERY}>
             {({ loading, data }) => {
               console.log(client.loading);
               if (!loading) {
                 console.log(client.data);
-                return data.rates.map(item => <p key={item.currency}>{item.currency}</p>);
+                return (
+                  <ul>{data.rates.map(item => <li key={item.currency}>{item.currency}</li>)}</ul>
+                );
               }
               return <p>Loading ........</p>;
             }}
