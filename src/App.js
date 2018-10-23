@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 // import gql from 'graphql-tag';
+
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import BlogPosts from './components/BlogPosts';
 import './App.css';
 
@@ -14,14 +16,18 @@ const client = new ApolloClient({
 class App extends Component {
   render() {
     return (
-      <ApolloProvider client={client}>
-        <div className="App">
-          <header className="App-header">
-            <h1 className="App-title">BLOG IT</h1>
-          </header>
-          <BlogPosts />
-        </div>
-      </ApolloProvider>
+      <Router>
+        <ApolloProvider client={client}>
+          <div className="App">
+            <header className="App-header">
+              <h1 className="App-title">BLOG IT</h1>
+            </header>
+            <Switch>
+              <Route exact path="/" component={BlogPosts} />
+            </Switch>
+          </div>
+        </ApolloProvider>
+      </Router>
     );
   }
 }
