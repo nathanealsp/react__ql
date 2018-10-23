@@ -10,3 +10,12 @@ export const POST_QUERY = gql`
     }
   }
 `;
+
+export const POSTONE_QUERY = gql`
+  query post($id: ID!) {
+    post(where: { id: $id }) {
+      title
+      body
+    }
+  }
+`;

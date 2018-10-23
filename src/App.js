@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-// WE IMPORT APOLLO CLIENT FROM APOLLO BOOST
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
-// import gql from 'graphql-tag';
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import styled from 'styled-components';
+// WE IMPORT APOLLO CLIENT FROM APOLLO BOOST
+import { ApolloProvider } from 'react-apollo';
+import { Link } from 'react-router-dom';
+import ApolloClient from 'apollo-boost';
 import BlogPosts from './components/BlogPosts';
+import Blog from './components/Blog';
 import './App.css';
 
 // CONNECTING TO THE APOLLO SERVER USING APOLLO BOOST THRU APOLLO CLIENT
@@ -19,11 +20,14 @@ class App extends Component {
       <Router>
         <ApolloProvider client={client}>
           <div className="App">
-            <header className="App-header">
-              <h1 className="App-title">BLOG IT</h1>
-            </header>
+            <StyledLink to="/">
+              <header className="App-header">
+                <h1 className="App-title">BLOG IT</h1>
+              </header>
+            </StyledLink>
             <Switch>
               <Route exact path="/" component={BlogPosts} />
+              <Route exact path="/post/:id" component={Blog} />
             </Switch>
           </div>
         </ApolloProvider>
@@ -33,3 +37,15 @@ class App extends Component {
 }
 
 export default App;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
