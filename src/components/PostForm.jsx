@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Mutation } from 'react-apollo';
+import { CREATE_POST } from '../queries/Mutations';
 
 export default class PostForm extends Component {
   state = {
     title: '',
     body: '',
   };
-
+  // THIS IS HANDLING THE INPUT VALUES AND USING COMPUTED PROPERTIES
   handleInput = e => {
     const formData = {};
     formData[e.target.name] = e.target.value;
@@ -17,34 +18,54 @@ export default class PostForm extends Component {
   };
 
   render() {
+    // THIS DATA WILL BE PASSED INTO THE MUTATION VARAIBLE
     const { title, body } = this.state;
-    console.log(title, body);
+
     return (
-      <FormWrapper action="">
-        <InputSection>
-          <label htmlFor="title">TITLE</label>
-          <input
-            onChange={this.handleInput}
-            className="form_title"
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Title"
-          />
-        </InputSection>
-        <InputSection>
-          <label htmlFor="body">BODY</label>
-          <textarea
-            onChange={this.handleInput}
-            className="form_body"
-            type="text"
-            name="body"
-            id="body"
-            placeholder="Body"
-          />
-        </InputSection>
-        <Button type="submit">POST</Button>
-      </FormWrapper>
+      <Mutation mutation={CREATE_POST} variables={{ title, body }}>
+        {createPost => (
+          <FormWrapper
+            action=""
+            onSubmit={e => {
+              e.preventDefault();
+              createPost()
+                .then(() => {
+                  this.setState({
+                    title: '',
+                    body: '',
+                  });
+                })
+                .catch(error => console.log(error));
+            }}
+          >
+            <InputSection>
+              <label htmlFor="title">TITLE</label>
+              <input
+                onChange={this.handleInput}
+                className="form_title"
+                type="text"
+                name="title"
+                id="title"
+                // value="title"
+                placeholder="Title"
+              />
+            </InputSection>
+            <InputSection>
+              <label htmlFor="body">BODY</label>
+              <textarea
+                onChange={this.handleInput}
+                className="form_body"
+                type="text"
+                name="body"
+                id="body"
+                placeholder="Body"
+                // value="body"
+              />
+            </InputSection>
+            <Button type="submit">POST</Button>
+          </FormWrapper>
+        )}
+      </Mutation>
     );
   }
 }
