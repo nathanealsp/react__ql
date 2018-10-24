@@ -14,7 +14,7 @@ class BlogPosts extends Component {
               <ul>
                 {data.posts.map(post => (
                   <StyledLink to={`post/${post.id}`} key={post.id}>
-                    <li>{post.title}</li>
+                    <BlogLi>{post.title}</BlogLi>
                   </StyledLink>
                 ))}
               </ul>
@@ -28,6 +28,16 @@ class BlogPosts extends Component {
 }
 
 export default BlogPosts;
+
+const BlogLi = styled.div`
+  background: #4a148c;
+  width: 350px;
+  /* height: 80px; */
+  color: white;
+  font-size: 1.5em;
+  padding: 10px;
+  border-radius: 3px;
+`;
 
 const StyledLink = styled(Link)`
   text-decoration: none;

@@ -36,7 +36,7 @@ const BlogWrapper = styled.div`
   background: #222;
   height: 80px;
   display: grid;
-  grid-template-rows: 30px 1fr;
+  /* grid-template-rows: 30px 1fr; */
   border-radius: 3px;
   color: #fff;
   font-size: 16px;
@@ -44,9 +44,11 @@ const BlogWrapper = styled.div`
   .blog_title {
     padding: 8px;
     font-size: 1.5em;
+    height: 50px;
   }
   .blog_body {
     padding: 8px;
     font-size: 1em;
+    height: 250px;
   }
 `;
