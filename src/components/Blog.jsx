@@ -16,8 +16,8 @@ class Blog extends Component {
             const { title, body } = data.post;
             return (
               <BlogWrapper>
-                <div className=".blog_title">{title}</div>
-                <div className=".blog_body">{body}</div>
+                <div className="blog_title">{title}</div>
+                <div className="blog_body">{body}</div>
               </BlogWrapper>
             );
           }
@@ -31,22 +31,28 @@ class Blog extends Component {
 export default Blog;
 
 const BlogWrapper = styled.div`
-  margin-top: 10px;
+  margin: 10px 0;
+  padding: 10px;
   width: 330px;
-  background: #222;
-  height: 80px;
+  background: #7e57c2;
+  height: 320px;
   display: grid;
-  grid-template-rows: 30px 1fr;
+  /* grid-template-rows: 30px 1fr; */
   border-radius: 3px;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
   .blog_title {
-    padding: 8px;
+    background: #ede7f6;
+    text-align: center;
+    border-radius: 3px;
+    padding: 10px;
     font-size: 1.5em;
+    height: 50px;
   }
   .blog_body {
     padding: 8px;
     font-size: 1em;
+    height: 250px;
   }
 `;
