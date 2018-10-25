@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components';
 // WE IMPORT APOLLO CLIENT FROM APOLLO BOOST
 import { ApolloProvider } from 'react-apollo';
-import { Link } from 'react-router-dom';
+
 import ApolloClient from 'apollo-boost';
+
+import Header from './components/Header';
 import BlogPosts from './components/BlogPosts';
 import Blog from './components/Blog';
 import PostForm from './components/PostForm';
@@ -20,18 +22,20 @@ class App extends Component {
     return (
       <Router>
         <ApolloProvider client={client}>
-          <div className="App">
-            <StyledLink to="/">
-              <header className="App-header">
-                <h1 className="App-title">BLOG IT</h1>
-              </header>
-            </StyledLink>
-            <PostForm />
-            <Switch>
-              <Route exact path="/" component={BlogPosts} />
-              <Route exact path="/post/:id" component={Blog} />
-            </Switch>
-          </div>
+          <>
+            <Header />
+            <AppWrapper>
+              <StyledLink to="/new">
+                <Button>+ CREATE NEW </Button>
+              </StyledLink>
+
+              <Switch>
+                <Route exact path="/" component={BlogPosts} />
+                <Route exact path="/new" component={PostForm} />
+                <Route exact path="/post/:id" component={Blog} />
+              </Switch>
+            </AppWrapper>
+          </>
         </ApolloProvider>
       </Router>
     );
@@ -40,8 +44,18 @@ class App extends Component {
 
 export default App;
 
+const AppWrapper = styled.div`
+  width: 50%;
+  display: grid;
+  justify-content: center;
+  margin: 0 auto;
+  background: #ede7f6;
+  padding: 20px 30px;
+`;
+
 const StyledLink = styled(Link)`
   text-decoration: none;
+  color: white;
 
   &:focus,
   &:hover,
@@ -50,4 +64,20 @@ const StyledLink = styled(Link)`
   &:active {
     text-decoration: none;
   }
+`;
+
+const Button = styled.button`
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 200px;
+  height: 48px;
+  border-radius: 3px;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 1em;
+  letter-spacing: 1.2px;
+  border: none;
+  text-transform: uppercase;
+  background: #6200ee;
+  color: white;
 `;

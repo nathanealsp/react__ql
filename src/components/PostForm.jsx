@@ -25,7 +25,7 @@ export default class PostForm extends Component {
       <Mutation mutation={CREATE_POST} variables={{ title, body }}>
         {createPost => (
           <FormWrapper
-            action=""
+            // action=""
             onSubmit={e => {
               e.preventDefault();
               createPost()
@@ -46,8 +46,9 @@ export default class PostForm extends Component {
                 type="text"
                 name="title"
                 id="title"
-                // value="title"
+                value={title}
                 placeholder="Title"
+                required
               />
             </InputSection>
             <InputSection>
@@ -59,7 +60,8 @@ export default class PostForm extends Component {
                 name="body"
                 id="body"
                 placeholder="Body"
-                // value="body"
+                value={body}
+                required
               />
             </InputSection>
             <Button type="submit">POST</Button>
@@ -71,34 +73,29 @@ export default class PostForm extends Component {
 }
 
 const FormWrapper = styled.form`
-  display: grid;
-  padding: 50px;
-  grid-gap: 10px;
   font-weight: bold;
   outline: none;
   input[type='text'] {
-    width: 350px;
+    width: 550px;
   }
+  .form_title,
+  .form_body {
+    width: 550px;
+    border-radius: 3px;
+    border: 2px solid #6200ee;
+    margin: 10px 0;
+    resize: none;
+    font-weight: 500;
+    padding: 10px;
+    font-size: 1.2em;
+  }
+
   .form_title {
     height: 50px;
-    border-radius: 3px;
-    font-size: 1.2em;
-    padding: 0 8px;
     text-transform: capitalize;
-    font-weight: 500;
-    margin-top: 10px;
-    border: 2px solid #6200ee;
   }
   .form_body {
     height: 200px;
-    width: 350px;
-    resize: none;
-    border-radius: 3px;
-    padding: 10px;
-    font-size: 16px;
-    margin-top: 10px;
-    font-weight: 500;
-    border: 2px solid #6200ee;
   }
 
   input:focus,
@@ -115,7 +112,7 @@ const InputSection = styled.div`
 `;
 
 const Button = styled.button`
-  width: 350px;
+  width: 550px;
   height: 48px;
   border-radius: 3px;
   padding: 5px;

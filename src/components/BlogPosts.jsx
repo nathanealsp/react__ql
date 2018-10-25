@@ -11,13 +11,13 @@ class BlogPosts extends Component {
         {({ loading, data }) => {
           if (!loading) {
             return (
-              <ul>
+              <BlogPostsWrapper>
                 {data.posts.map(post => (
                   <StyledLink to={`post/${post.id}`} key={post.id}>
-                    <BlogLi>{post.title}</BlogLi>
+                    <Blog>{post.title}</Blog>
                   </StyledLink>
                 ))}
-              </ul>
+              </BlogPostsWrapper>
             );
           }
           return <p>Loading ........</p>;
@@ -29,13 +29,18 @@ class BlogPosts extends Component {
 
 export default BlogPosts;
 
-const BlogLi = styled.div`
-  background: #4a148c;
-  width: 350px;
-  /* height: 80px; */
+const BlogPostsWrapper = styled.div`
+  width: 550px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 5px;
+`;
+
+const Blog = styled.div`
+  background: #b39ddb;
   color: white;
   font-size: 1.5em;
-  padding: 10px;
+  padding: 15px;
   border-radius: 3px;
 `;
 
