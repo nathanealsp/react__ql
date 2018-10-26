@@ -6,9 +6,7 @@ import PostForm from './PostForm';
 class NewPost extends Component {
   render() {
     return (
-      <Mutation mutation={CREATE_POST}>
-        {createPost => <PostForm onSubmitHandler={createPost()} />}
-      </Mutation>
+      <Mutation mutation={CREATE_POST}>{createPost => <PostForm onSubmit={createPost} />}</Mutation>
     );
   }
 }

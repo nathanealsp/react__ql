@@ -9,7 +9,7 @@ import ApolloClient from 'apollo-boost';
 import Header from './components/Header';
 import BlogPosts from './components/BlogPosts';
 import Blog from './components/Blog';
-import PostForm from './components/PostForm';
+import NewPost from './components/NewPost';
 import './App.css';
 
 // CONNECTING TO THE APOLLO SERVER USING APOLLO BOOST THRU APOLLO CLIENT
@@ -31,7 +31,7 @@ class App extends Component {
 
               <Switch>
                 <Route exact path="/" component={BlogPosts} />
-                <Route exact path="/new" component={PostForm} />
+                <Route exact path="/new" component={NewPost} />
                 <Route exact path="/post/:id" component={Blog} />
               </Switch>
             </AppWrapper>

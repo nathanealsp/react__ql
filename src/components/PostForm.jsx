@@ -5,6 +5,7 @@ class PostForm extends Component {
   state = {
     title: '',
     body: '',
+    status: 'fail',
   };
   // THIS IS HANDLING THE INPUT VALUES AND USING COMPUTED PROPERTIES
   handleInput = e => {
@@ -29,22 +30,23 @@ class PostForm extends Component {
 
     // 5. AND CATCH ANY ERRORS
 
-    const { onSubmitHandler } = this.props;
-    const { title, body } = this.state;
+    const { onSubmit } = this.props;
+    const { title, body, status } = this.state;
 
     return (
       <div>
         <FormWrapper
-          action="POST"
+          // action=""
           onSubmit={e => {
             e.preventDefault();
-            onSubmitHandler({
+            onSubmit({
               variables: {
                 title,
                 body,
               },
             })
               .then(() => {
+                console.log(this);
                 this.setState({
                   title: '',
                   body: '',
@@ -63,7 +65,7 @@ class PostForm extends Component {
               id="title"
               value={title}
               placeholder="Title"
-              required
+              // required
             />
           </InputSection>
           <InputSection>
@@ -76,7 +78,7 @@ class PostForm extends Component {
               id="body"
               placeholder="Body"
               value={body}
-              required
+              // required
             />
           </InputSection>
           <Button type="submit">POST</Button>
