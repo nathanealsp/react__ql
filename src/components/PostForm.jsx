@@ -135,8 +135,6 @@ const Button = styled.button`
   border-radius: 3px;
   padding: 5px;
   font-weight: bold;
-  font-size: 1em;
-  letter-spacing: 1.2px;
   border: none;
   text-transform: uppercase;
   background: #6200ee;

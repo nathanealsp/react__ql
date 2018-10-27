@@ -39,7 +39,6 @@ const BlogWrapper = styled.div`
   display: grid;
   border-radius: 3px;
   color: #fff;
-  font-size: 16px;
   font-weight: bold;
   .blog_title {
     background: #ede7f6;
