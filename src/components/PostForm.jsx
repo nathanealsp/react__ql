@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Mutation } from 'react-apollo';
-import { CREATE_POST } from '../queries/Mutations';
+import Button from '../UI-Library/UI-Library';
 
-export default class PostForm extends Component {
+class PostForm extends Component {
   state = {
     title: '',
     body: '',
+    status: 'fail',
   };
   // THIS IS HANDLING THE INPUT VALUES AND USING COMPUTED PROPERTIES
   handleInput = e => {
+    // OBJECT LITERAL TO CAPTURE THE VALUES THAT WILL UPDATE STATE
     const formData = {};
+    // USING COMPUTED VALUES TO GRAB THE VALUES FROM THE INPUT
+    // const { name, value } = e.target;
     formData[e.target.name] = e.target.value;
     this.setState({
       ...formData,
@@ -18,59 +21,75 @@ export default class PostForm extends Component {
   };
 
   render() {
-    // THIS DATA WILL BE PASSED INTO THE MUTATION VARAIBLE
-    const { title, body } = this.state;
+    // 1.THIS DATA WILL BE PASSED INTO THE MUTATION VARAIBLE
+
+    // 2.THE onSubmit IS A PROP GIVING US ACCESS TO THE RENDERED PROP FROM THE MUTATION COMPONENT (AND THE PROP IS createPost).
+
+    // 3.WE CALL THE PROP FROM THE MUTATION, AS A FUNCTION AND PASS IT AN OBJECT WITH VARIABLES OBJECT.(KEY: VALUE)(KEY: VALUES FROM STATE)
+
+    // 4.THE CREATEPOST FUNCTION RETURNS A PROMISE WHERE WE ADD A .THEN AND RESET THE VALUES TO EMPTY STRINGS(THIS RESET THE FORM VALUES)
+
+    // 5. AND CATCH ANY ERRORS
+
+    const { onSubmit } = this.props;
+    const { title, body, status } = this.state;
 
     return (
-      <Mutation mutation={CREATE_POST} variables={{ title, body }}>
-        {createPost => (
-          <FormWrapper
-            // action=""
-            onSubmit={e => {
-              e.preventDefault();
-              createPost()
-                .then(() => {
-                  this.setState({
-                    title: '',
-                    body: '',
-                  });
-                })
-                .catch(error => console.log(error));
-            }}
-          >
-            <InputSection>
-              <label htmlFor="title">TITLE</label>
-              <input
-                onChange={this.handleInput}
-                className="form_title"
-                type="text"
-                name="title"
-                id="title"
-                value={title}
-                placeholder="Title"
-                required
-              />
-            </InputSection>
-            <InputSection>
-              <label htmlFor="body">BODY</label>
-              <textarea
-                onChange={this.handleInput}
-                className="form_body"
-                type="text"
-                name="body"
-                id="body"
-                placeholder="Body"
-                value={body}
-                required
-              />
-            </InputSection>
-            <Button type="submit">POST</Button>
-          </FormWrapper>
-        )}
-      </Mutation>
+      <div>
+        <FormWrapper
+          // action=""
+          onSubmit={e => {
+            e.preventDefault();
+            onSubmit({
+              variables: {
+                title,
+                body,
+              },
+            })
+              .then(() => {
+                console.log(this);
+                this.setState({
+                  title: '',
+                  body: '',
+                });
+              })
+              .catch(error => console.log(error));
+          }}
+        >
+          <InputSection>
+            <label htmlFor="title">TITLE</label>
+            <input
+              onChange={this.handleInput}
+              className="form_title"
+              type="text"
+              name="title"
+              id="title"
+              value={title}
+              placeholder="Title"
+              // required
+            />
+          </InputSection>
+          <InputSection>
+            <label htmlFor="body">BODY</label>
+            <textarea
+              onChange={this.handleInput}
+              className="form_body"
+              type="text"
+              name="body"
+              id="body"
+              placeholder="Body"
+              value={body}
+              // required
+            />
+          </InputSection>
+          <Button type="submit">POST</Button>
+        </FormWrapper>
+      </div>
     );
   }
 }
+
+export default PostForm;
 
 const FormWrapper = styled.form`
   font-weight: bold;
@@ -111,16 +130,14 @@ const InputSection = styled.div`
   text-align: left;
 `;
 
-const Button = styled.button`
-  width: 550px;
-  height: 48px;
-  border-radius: 3px;
-  padding: 5px;
-  font-weight: bold;
-  font-size: 1em;
-  letter-spacing: 1.2px;
-  border: none;
-  text-transform: uppercase;
-  background: #6200ee;
-  color: white;
-`;
+// const Button = styled.button`
+//   width: 550px;
+//   height: 48px;
+//   border-radius: 3px;
+//   padding: 5px;
+//   font-weight: bold;
+//   border: none;
+//   text-transform: uppercase;
+//   background: #6200ee;
+//   color: white;
+// `;

@@ -33,14 +33,12 @@ export default Blog;
 const BlogWrapper = styled.div`
   margin: 10px 0;
   padding: 10px;
-  width: 330px;
+  width: 550px;
   background: #7e57c2;
   height: 320px;
   display: grid;
-  /* grid-template-rows: 30px 1fr; */
   border-radius: 3px;
   color: #fff;
-  font-size: 16px;
   font-weight: bold;
   .blog_title {
     background: #ede7f6;
@@ -49,6 +47,7 @@ const BlogWrapper = styled.div`
     padding: 10px;
     font-size: 1.5em;
     height: 50px;
+    color: black;
   }
   .blog_body {
     padding: 8px;
