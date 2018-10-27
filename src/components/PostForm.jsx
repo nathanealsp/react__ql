@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Button from '../UI-Library/UI-Library';
 
 class PostForm extends Component {
   state = {
@@ -129,14 +130,14 @@ const InputSection = styled.div`
   text-align: left;
 `;
 
-const Button = styled.button`
-  width: 550px;
-  height: 48px;
-  border-radius: 3px;
-  padding: 5px;
-  font-weight: bold;
-  border: none;
-  text-transform: uppercase;
-  background: #6200ee;
-  color: white;
-`;
+// const Button = styled.button`
+//   width: 550px;
+//   height: 48px;
+//   border-radius: 3px;
+//   padding: 5px;
+//   font-weight: bold;
+//   border: none;
+//   text-transform: uppercase;
+//   background: #6200ee;
+//   color: white;
+// `;
