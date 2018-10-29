@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { StyledLink } from '../UI-Library/UI-Library';
 
 export default class Header extends Component {
   render() {
@@ -21,15 +21,5 @@ const HeaderWrapper = styled.div`
   color: white;
   font-weight: bold;
   text-align: center;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-  }
+  margin-bottom: 5px;
 `;

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import { POST_QUERY } from '../queries/Queries';
+
+import { StyledLink, ButtonLong } from '../UI-Library/UI-Library';
 
 class BlogPosts extends Component {
   render() {
@@ -12,6 +13,9 @@ class BlogPosts extends Component {
           if (!loading) {
             return (
               <BlogPostsWrapper>
+                <StyledLink to="/new">
+                  <ButtonLong>+ CREATE NEW</ButtonLong>
+                </StyledLink>
                 {data.posts.map(post => (
                   <StyledLink to={`post/${post.id}`} key={post.id}>
                     <Blog>{post.title}</Blog>
@@ -42,16 +46,4 @@ const Blog = styled.div`
   font-size: 1.5em;
   padding: 15px;
   border-radius: 3px;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-  }
 `;

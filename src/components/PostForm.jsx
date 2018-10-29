@@ -6,7 +6,6 @@ class PostForm extends Component {
   state = {
     title: '',
     body: '',
-    status: 'fail',
   };
   // THIS IS HANDLING THE INPUT VALUES AND USING COMPUTED PROPERTIES
   handleInput = e => {
@@ -32,7 +31,7 @@ class PostForm extends Component {
     // 5. AND CATCH ANY ERRORS
 
     const { onSubmit } = this.props;
-    const { title, body, status } = this.state;
+    const { title, body } = this.state;
 
     return (
       <div>
@@ -94,9 +93,11 @@ export default PostForm;
 const FormWrapper = styled.form`
   font-weight: bold;
   outline: none;
+
   input[type='text'] {
     width: 550px;
   }
+
   .form_title,
   .form_body {
     width: 550px;
@@ -113,6 +114,7 @@ const FormWrapper = styled.form`
     height: 50px;
     text-transform: capitalize;
   }
+
   .form_body {
     height: 200px;
   }
@@ -129,15 +131,3 @@ const InputSection = styled.div`
   display: grid;
   text-align: left;
 `;
-
-// const Button = styled.button`
-//   width: 550px;
-//   height: 48px;
-//   border-radius: 3px;
-//   padding: 5px;
-//   font-weight: bold;
-//   border: none;
-//   text-transform: uppercase;
-//   background: #6200ee;
-//   color: white;
-// `;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-
 import { Query } from 'react-apollo';
 import { POSTONE_QUERY } from '../queries/Queries';
 
