@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
-import { POST_QUERY } from '../queries/Queries';
+import { POST_QUERY } from '../queries/queries';
 
 class BlogPosts extends Component {
   render() {
