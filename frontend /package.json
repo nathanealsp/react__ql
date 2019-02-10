@@ -1,23 +1,25 @@
 {
-  "name": "react-graphql-neon",
+  "name": "neon",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ajv": "^6.8.1",
     "apollo-boost": "^0.2.0-verify.4",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
-    "react": "^16.5.2",
+    "react": "next",
     "react-apollo": "^2.1.0-rc.5",
-    "react-dom": "^16.5.2",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.0.2",
+    "react-dom": "next",
+    "react-router-dom": "next",
+    "react-scripts": "^2.1.3",
     "styled-components": "^4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "nuke": "rm -rf node_modules && npm install"
   },
   "browserslist": [
     ">0.2%",

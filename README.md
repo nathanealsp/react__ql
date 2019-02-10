@@ -1,15 +1,25 @@
-# REACT_QL
-A React, GraphQl, Apollo Client project.
+# React_QL
 
-Journey learning GraphQL & Apollo 👉🏽 👨🏾‍💻 📚
+A React, GraphQl, Apollo Client project
 
+### Frontend
 
-## TOOLS
+React - the library for UI
+Apollo Client
 
-### [GraphQL 👉🏽 The Spec] (https://graphql.org/learn/)
-### [create-react-app 👉🏽 Build tool] (https://github.com/facebook/create-react-app)
-### [GraphCMS 👉🏽 server] (https://graphcms.com/)
-### [Apollo Client] (https://www.apollographql.com/docs/react/)
+#### Backend
 
+Nodejs(Express) App .
+Graphql Server
 
-##DAY ONE
+#### Database
+
+Mongo db - mlab (As choice of database)
+
+### Graphiql
+
+The dummy frontend app used to test our queries
+
+## Session One
+
+App Reorganising
