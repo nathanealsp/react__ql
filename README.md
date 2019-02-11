@@ -108,13 +108,11 @@ const MovieType = new GraphQLObjectType({
 > since the file runs from top to bottom,the function runs and the file will be aware of the fields we defined
 > by the time we excute the query it will be aware of every field.otherwise the UI will give us a `TypeError:Failed to fetch`
 
-ListQueries using GraphQLLIST
-
-in our RootQuery Under the fields
+**Lists** using GraphQLList in our RootQuery Under the fields
 
 ```js
 const RootQuery = new GraphQlObjectType({
-  name: 'RootQueryType'
+  name: 'RootQueryType',
   fields: {
     movie: {
       type: MovieType,
@@ -122,14 +120,12 @@ const RootQuery = new GraphQlObjectType({
         id: {
           type: GraphQLID, // This is will allow for id in the query to be either a string or interger
         },
-        resolve: (parent, args)=> data.find(item => item.id === args.id),
+        resolve: (parent, args) => data.find(item => item.id === args.id),
       },
     },
     movies: {
-      type: new GraphQLLIST(MovieType),
-        resolve:(parent, args) => data.find(item => item.id === args.id);
-        },
-      },
+      type: new GraphQLList(MovieType),
+      resolve: () => movies,
     },
   },
 });

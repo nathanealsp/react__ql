@@ -9,7 +9,8 @@ const {
   GraphQLBoolean,
   GraphQLSchema,
   GraphQLID,
-  GraphQLLIST,
+  GraphQLList,
+  GraphQLNonNull,
 } = graphql;
 
 // Define an object type we need GraphQLObjectType Class from graphql
@@ -92,13 +93,19 @@ const DirectorType = new GraphQLObjectType({
     movie: {
       type: GraphQLString,
     },
+    movies: {
+      type: new GraphQLList(MovieType),
+      resolve(parent, args) {
+        return movies.filter(movies => movies.directorId === parent.id);
+      },
+    },
   }),
 });
 
 // ROOT QUERY - Defines how we jump into the the graph and get data
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
-  fields: {
+  fields: () => ({
     // THE MOVIE QUERY
     movie: {
       type: MovieType,
@@ -107,6 +114,13 @@ const RootQuery = new GraphQLObjectType({
         return movies.find(item => item.id === args.id);
       },
     },
+
+    // THE MOVIES LIST QUERY
+    movies: {
+      type: new GraphQLList(MovieType),
+      resolve: () => movies,
+    },
+
     // THE DIRECTOR QUERY
     director: {
       type: DirectorType,
@@ -115,7 +129,13 @@ const RootQuery = new GraphQLObjectType({
         return directors.find(item => item.id === args.id);
       },
     },
-  },
+
+    // THE DIRECTORS LIST QUERY
+    directors: {
+      type: new GraphQLList(DirectorType),
+      resolve: () => directors,
+    },
+  }),
 });
 
 module.exports = new GraphQLSchema({
