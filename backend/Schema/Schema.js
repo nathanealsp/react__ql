@@ -1,6 +1,7 @@
 const graphql = require('graphql');
 
-const movies = require('./Data');
+const { movies_: movies, directors } = require('./Data');
+
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -8,37 +9,13 @@ const {
   GraphQLBoolean,
   GraphQLSchema,
   GraphQLID,
+  GraphQLLIST,
 } = graphql;
 
 // Define an object type we need GraphQLObjectType Class from graphql
 
-// Create a MovieType off the class syntax
-
+// THE MOVIE TYPE
 const MovieType = new GraphQLObjectType({
-  name: 'Movie',
-  fields: () => ({
-    id: {
-      type: GraphQLString,
-    },
-    title: {
-      type: GraphQLString,
-    },
-    year: {
-      type: GraphQLString,
-    },
-    certificate: {
-      type: GraphQLString,
-    },
-    runtime: {
-      type: GraphQLString,
-    },
-    genre: {
-      type: GraphQLString,
-    },
-  }),
-});
-
-const MovieType2 = new GraphQLObjectType({
   name: 'Movie',
   fields: () => ({
     id: {
@@ -59,33 +36,61 @@ const MovieType2 = new GraphQLObjectType({
     genre: {
       type: GraphQLString,
     },
-    blob: {
-      type: GraphQLString,
-    },
     director: {
-      type: GraphQLString,
-    },
-    stars: {
-      type: GraphQLString,
+      type: DirectorType,
+      resolve(parent, args) {
+        console.log(parent);
+        return directors.find(item => item.id === parent.directorId);
+      },
     },
   }),
 });
 
-// The ACTOR TYPE
-const ActorType = new GraphQLObjectType({
-  name: 'Actor',
+// const MovieType2 = new GraphQLObjectType({
+//   name: 'Movie',
+//   fields: () => ({
+//     id: {
+//       type: GraphQLID,
+//     },
+//     title: {
+//       type: GraphQLString,
+//     },
+//     year: {
+//       type: GraphQLString,
+//     },
+//     certificate: {
+//       type: GraphQLString,
+//     },
+//     runtime: {
+//       type: GraphQLString,
+//     },
+//     genre: {
+//       type: GraphQLString,
+//     },
+//     blob: {
+//       type: GraphQLString,
+//     },
+//     director: {
+//       type: GraphQLString,
+//     },
+//     stars: {
+//       type: GraphQLString,
+//     },
+//   }),
+// });
+
+// The Director TYPE
+const DirectorType = new GraphQLObjectType({
+  name: 'Director',
   fields: () => ({
     id: {
-      type: GraphQLString,
+      type: GraphQLID,
     },
     name: {
       type: GraphQLString,
     },
     movie: {
       type: GraphQLString,
-    },
-    age: {
-      type: GraphQLInt,
     },
   }),
 });
@@ -94,24 +99,21 @@ const ActorType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
+    // THE MOVIE QUERY
     movie: {
       type: MovieType,
       args: { id: { type: GraphQLID } }, // Expect the id to come along with the query
       resolve(parent, args) {
         return movies.find(item => item.id === args.id);
-      }, // when we receive a query, we shall have access to the id thru the args, which we could use to query an external database
-    },
-    allmovies: {
-      type: MovieType,
-      resolve(parent, args) {
-        return movies.map(item => item);
       },
     },
-
-    actor: {
-      type: ActorType,
-      args: { id: { type: GraphQLString } }, // Expect the id to come along with the query
-      resolve(parent, args) {}, // when we receive a query, we shall have access to the id thru the args, which we could use to query an external database
+    // THE DIRECTOR QUERY
+    director: {
+      type: DirectorType,
+      args: { id: { type: GraphQLID } }, // Expect the id to come along with the query
+      resolve(parent, args) {
+        return directors.find(item => item.id === args.id);
+      },
     },
   },
 });

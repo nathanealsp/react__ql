@@ -654,6 +654,7 @@ const movies_ = [
       'A blind lawyer by day, vigilante by night. Matt Murdock fights the crime of New York as Daredevil.',
     director: 'Charlie Cox',
     stars: ["Vincent D'Onofrio", 'Deborah Ann Woll', 'Elden Henson'],
+    directorId: '1',
   },
   {
     id: '2',
@@ -666,6 +667,7 @@ const movies_ = [
       'As Scott Lang balances being both a Super Hero and a father, Hope van Dyne and Dr. Hank Pym present an urgent new mission that finds the Ant-Man fighting alongside The Wasp to uncover secrets from their past.',
     director: 'Peyton Reed',
     stars: ['Paul Rudd', 'Evangeline Lilly', 'Michael Peña', 'Walton Goggins'],
+    directorId: '2',
   },
   {
     id: '3',
@@ -678,7 +680,13 @@ const movies_ = [
       'Based on the true events of 2016, when Indian Army avenged a deadly terrorist attack by carrying out a surgical strike.',
     director: 'Aditya Dhar',
     stars: ['Vicky Kaushal', 'Paresh Rawal', 'Yami Gautam', 'Mohit Raina'],
+    directorId: '3',
   },
 ];
 
-module.exports = movies_;
+const directors = [
+  { id: '1', name: 'Charlie Cox', movie: 'Daredevil' },
+  { id: '2', name: 'Peyton Reed', movie: 'Ant-Man and the Wasp' },
+  { id: '3', name: 'Aditya Dhar', movie: 'Uri: The Surgical Strike' },
+];
+module.exports = { movies_, directors };
