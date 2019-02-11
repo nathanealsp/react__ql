@@ -2,12 +2,12 @@
 
 A React, GraphQl, Apollo Client project
 
-### Frontend
+## Frontend
 
 React - the library for UI
 Apollo Client
 
-#### Backend
+### Backend
 
 Nodejs(Express) App .
 Graphql Server
