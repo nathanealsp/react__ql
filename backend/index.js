@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const graphqlHTTP = require('express-graphql');
 // MONGOOSE
 const mongoose = require('mongoose');
@@ -25,6 +26,8 @@ app.use(
     graphiql: true,
   })
 );
+
+app.use(cors());
 
 app.listen(port, () => {
   console.log(
