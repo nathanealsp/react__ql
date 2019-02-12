@@ -1,19 +1,26 @@
 const graphql = require('graphql');
 
-const { movies_: movies, directors } = require('./Data');
-
 const {
   GraphQLObjectType,
   GraphQLString,
-  GraphQLInt,
-  GraphQLBoolean,
-  GraphQLSchema,
   GraphQLID,
   GraphQLList,
-  GraphQLNonNull,
+  GraphQLSchema,
+  // GraphQLInt,
+  // GraphQLBoolean,
+  // GraphQLNonNull,
 } = graphql;
 
-// Define an object type we need GraphQLObjectType Class from graphql
+// GRAPHQL OBJECT TYPES
+// MODELS(COLLECTIONS) FROM MONGODB
+// FOR TYPE RELATION
+// MODELS(COLLECTIONS) FROM MONGODB
+// FOR TYPE RELATION
+// MODELS(COLLECTIONS) FROM MONGODB
+// MODELS(COLLECTIONS) FROM MONGODB
+
+const Movies = require('../database/models/movieModel');
+const Directors = require('../database/models/directorModel');
 
 // THE MOVIE TYPE
 const MovieType = new GraphQLObjectType({
@@ -28,12 +35,6 @@ const MovieType = new GraphQLObjectType({
     year: {
       type: GraphQLString,
     },
-    certificate: {
-      type: GraphQLString,
-    },
-    runtime: {
-      type: GraphQLString,
-    },
     genre: {
       type: GraphQLString,
     },
@@ -41,46 +42,13 @@ const MovieType = new GraphQLObjectType({
       type: DirectorType,
       resolve(parent, args) {
         console.log(parent);
-        return directors.find(item => item.id === parent.directorId);
+        return Directors.findby(parent.directorId);
       },
     },
   }),
 });
 
-// const MovieType2 = new GraphQLObjectType({
-//   name: 'Movie',
-//   fields: () => ({
-//     id: {
-//       type: GraphQLID,
-//     },
-//     title: {
-//       type: GraphQLString,
-//     },
-//     year: {
-//       type: GraphQLString,
-//     },
-//     certificate: {
-//       type: GraphQLString,
-//     },
-//     runtime: {
-//       type: GraphQLString,
-//     },
-//     genre: {
-//       type: GraphQLString,
-//     },
-//     blob: {
-//       type: GraphQLString,
-//     },
-//     director: {
-//       type: GraphQLString,
-//     },
-//     stars: {
-//       type: GraphQLString,
-//     },
-//   }),
-// });
-
-// The Director TYPE
+// The DIRECTOR TYPE
 const DirectorType = new GraphQLObjectType({
   name: 'Director',
   fields: () => ({
@@ -96,7 +64,7 @@ const DirectorType = new GraphQLObjectType({
     movies: {
       type: new GraphQLList(MovieType),
       resolve(parent, args) {
-        return movies.filter(movies => movies.directorId === parent.id);
+        return Movies.filter(movies => movies.directorId === parent.id);
       },
     },
   }),
@@ -111,14 +79,14 @@ const RootQuery = new GraphQLObjectType({
       type: MovieType,
       args: { id: { type: GraphQLID } }, // Expect the id to come along with the query
       resolve(parent, args) {
-        return movies.find(item => item.id === args.id);
+        return Movies.findById(args.id);
       },
     },
 
     // THE MOVIES LIST QUERY
     movies: {
       type: new GraphQLList(MovieType),
-      resolve: () => movies,
+      resolve: () => Movies.find({}),
     },
 
     // THE DIRECTOR QUERY
@@ -126,18 +94,55 @@ const RootQuery = new GraphQLObjectType({
       type: DirectorType,
       args: { id: { type: GraphQLID } }, // Expect the id to come along with the query
       resolve(parent, args) {
-        return directors.find(item => item.id === args.id);
+        return Directors.findById(args.id);
       },
     },
 
     // THE DIRECTORS LIST QUERY
     directors: {
       type: new GraphQLList(DirectorType),
-      resolve: () => directors,
+      resolve: () => Directors.find({}),
+    },
+  }),
+});
+
+/** ******************************** MUTATIONS ********************************* */
+
+// These allow use to mutate / change our data
+// Adding Data
+// Editing Data
+// Deleting Data
+
+const Mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: () => ({
+    // ADD MOVIE MUTATION
+    addMovie: {
+      type: MovieType,
+      args: {
+        title: {
+          type: GraphQLString,
+        },
+        year: {
+          type: GraphQLString,
+        },
+        genre: {
+          type: GraphQLString,
+        },
+      },
+      resolve(parent, args) {
+        const movie = new Movies({
+          title: args.title,
+          year: args.year,
+          genre: args.genre,
+        });
+        return movie.save();
+      },
     },
   }),
 });
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation: Mutation,
 });
