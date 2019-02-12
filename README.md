@@ -53,7 +53,7 @@ const MovieType = new GraphQLObjectType({
 });
 ```
 
-And for a RootQuery - this is a way of jumping the graph
+And for a RootQuery - this is a way of jumping into the graph
 
 ```js
 const RootQuery = new GraphQlObjectType({
@@ -128,5 +128,52 @@ const RootQuery = new GraphQlObjectType({
       resolve: () => movies,
     },
   },
+});
+```
+
+#### Session Four
+
+**Database**
+
+> Mlab to host the mongodb instance.
+> Mongoose a package to interact with the db.
+> Created a model and schema.
+
+**Mutations**
+
+> This is almost the same as creating a RootQuery
+> We can capture the data using the args and resolve the data
+> The `save()` function is special to mongoose ( basically saves data to the hosted mongodb).
+> `return movie.save()` to have access to the saved data
+
+```js
+const Mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: () => ({
+    // ADD MOVIE MUTATION
+    addMovie: {
+      type: MovieType,
+      args: {
+        title: {
+          type: GraphQLString,
+        },
+        year: {
+          type: GraphQLString,
+        },
+        genre: {
+          type: GraphQLString,
+        },
+      },
+      resolve(parent, args) {
+        const movie = new Movies({
+          title: args.title,
+          year: args.year,
+          genre: args.genre,
+        });
+
+        return movie.save();
+      },
+    },
+  }),
 });
 ```

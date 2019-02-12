@@ -11,16 +11,11 @@ const {
   // GraphQLNonNull,
 } = graphql;
 
-// GRAPHQL OBJECT TYPES
 // MODELS(COLLECTIONS) FROM MONGODB
-// FOR TYPE RELATION
-// MODELS(COLLECTIONS) FROM MONGODB
-// FOR TYPE RELATION
-// MODELS(COLLECTIONS) FROM MONGODB
-// MODELS(COLLECTIONS) FROM MONGODB
-
 const Movies = require('../database/models/movieModel');
 const Directors = require('../database/models/directorModel');
+
+// *************************GRAPHQL OBJECT TYPES************************* //
 
 // THE MOVIE TYPE
 const MovieType = new GraphQLObjectType({
@@ -38,6 +33,7 @@ const MovieType = new GraphQLObjectType({
     genre: {
       type: GraphQLString,
     },
+    // FOR TYPE RELATION
     director: {
       type: DirectorType,
       resolve(parent, args) {
@@ -61,6 +57,7 @@ const DirectorType = new GraphQLObjectType({
     movie: {
       type: GraphQLString,
     },
+    // FOR TYPE RELATION
     movies: {
       type: new GraphQLList(MovieType),
       resolve(parent, args) {
@@ -70,6 +67,9 @@ const DirectorType = new GraphQLObjectType({
   }),
 });
 
+// *************************GRAPHQL OBJECT TYPES************************* //
+
+// ******************************ROOT QUERY****************************** //
 // ROOT QUERY - Defines how we jump into the the graph and get data
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -105,8 +105,9 @@ const RootQuery = new GraphQLObjectType({
     },
   }),
 });
+// ******************************ROOT QUERY****************************** //
 
-/** ******************************** MUTATIONS ********************************* */
+// *******************************MUTATIONS******************************* //
 
 // These allow use to mutate / change our data
 // Adding Data
@@ -141,6 +142,8 @@ const Mutation = new GraphQLObjectType({
     },
   }),
 });
+
+// *******************************MUTATIONS******************************* //
 
 module.exports = new GraphQLSchema({
   query: RootQuery,

@@ -16,13 +16,12 @@ const app = express();
 const port = 9000;
 
 const schema = require('./Schema/Schema');
-const scheema = require('./Schema/Schema');
 // Middleware
 
 app.use(
   '/graphql',
   graphqlHTTP({
-    schema: scheema,
+    schema,
     graphiql: true,
   })
 );
