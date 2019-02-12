@@ -144,7 +144,7 @@ const RootQuery = new GraphQlObjectType({
 > This is almost the same as creating a RootQuery
 > We can capture the data using the args and resolve the data
 > The `save()` function is special to mongoose ( basically saves data to the hosted mongodb).
-> `return movie.save()` to have access to the saved data
+> `return movie.save()` gives access to the saved data
 
 ```js
 const Mutation = new GraphQLObjectType({
@@ -177,3 +177,12 @@ const Mutation = new GraphQLObjectType({
   }),
 });
 ```
+
+> Used cors middleware
+
+#### Session Five
+
+**Frontend** - Apollo Client and React
+
+> React - for ui
+> Apollo Client - Help interact with GraphQl (fetching data)
